@@ -1,5 +1,4 @@
 import {render, screen} from "@testing-library/react";
-import {describe} from "vitest";
 import ProductImageGallery from "../../src/components/ProductImageGallery.tsx";
 
 describe("ProductImageGallery", () => {
