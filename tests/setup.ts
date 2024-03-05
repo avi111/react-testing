@@ -1,5 +1,11 @@
 import '@testing-library/jest-dom/vitest';
 import ResizeObserver from 'resize-observer-polyfill';
+import {server} from "./mocks/server.ts";
+import {afterAll, afterEach, beforeAll} from "vitest";
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 global.ResizeObserver = ResizeObserver;
 
