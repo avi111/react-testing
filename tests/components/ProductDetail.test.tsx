@@ -5,6 +5,7 @@ import {delay, http, HttpResponse} from "msw";
 import {server} from "../mocks/server.ts";
 import {afterAll, beforeAll} from "vitest";
 import {db} from "../mocks/db.ts";
+import AllProviders from "../AllProviders.tsx";
 
 describe('ProductDetail', () => {
     let productId: number;
@@ -19,7 +20,7 @@ describe('ProductDetail', () => {
 
     it('should render the product detail', async () => {
         const product = db.product.findFirst({where: {id: {equals: productId}}});
-        render(<ProductDetail productId={productId}/>);
+        render(<ProductDetail productId={productId}/>, {wrapper: AllProviders});
 
         const name = await screen.findByText(new RegExp(product!.name));
         expect(name).toBeInTheDocument();
@@ -30,14 +31,14 @@ describe('ProductDetail', () => {
 
     it('should render an error message when the product is not found', async () => {
         server.use(http.get('/products/1', () => HttpResponse.json(null)))
-        render(<ProductDetail productId={1}/>);
+        render(<ProductDetail productId={1}/>, {wrapper: AllProviders});
 
         const message = await screen.findByText(/not found/i);
         expect(message).toBeInTheDocument();
     });
 
     it('should render an error message when the product id is invalid', async () => {
-        render(<ProductDetail productId={0}/>);
+        render(<ProductDetail productId={0}/>, {wrapper: AllProviders});
 
         const message = await screen.findByText(/invalid/i);
         expect(message).toBeInTheDocument();
@@ -45,7 +46,7 @@ describe('ProductDetail', () => {
 
     it('should render an error message when an unexpected error occurs', async () => {
         server.use(http.get('/products/1', () => HttpResponse.error()))
-        render(<ProductDetail productId={1}/>);
+        render(<ProductDetail productId={1}/>, {wrapper: AllProviders});
 
         const message = await screen.findByText(/error/i);
         expect(message).toBeInTheDocument();
@@ -53,7 +54,7 @@ describe('ProductDetail', () => {
 
     it('should render an error message when an unexpected error occurs', async () => {
         server.use(http.get("/products/1", () => HttpResponse.error()));
-        render(<ProductDetail productId={1}/>);
+        render(<ProductDetail productId={1}/>, {wrapper: AllProviders});
 
         const message = await screen.findByText(/error/i);
         expect(message).toBeInTheDocument();
@@ -65,21 +66,21 @@ describe('ProductDetail', () => {
             return HttpResponse.json([]);
         }));
 
-        render(<ProductDetail productId={1}/>);
+        render(<ProductDetail productId={1}/>, {wrapper: AllProviders});
 
         const message = await screen.findByText(/loading/i);
         expect(message).toBeInTheDocument();
     });
 
     it('should remove the loading indicator after data is fetched', async () => {
-        render(<ProductDetail productId={1}/>);
+        render(<ProductDetail productId={1}/>, {wrapper: AllProviders});
 
         await waitForElementToBeRemoved(() => screen.queryByText(/loading/i));
     });
 
     it('should remove the loading indicator if the data fetching failed', async () => {
         server.use(http.get("/products/1", () => HttpResponse.error()));
-        render(<ProductDetail productId={1}/>);
+        render(<ProductDetail productId={1}/>, {wrapper: AllProviders});
 
         await waitForElementToBeRemoved(() => screen.queryByText(/loading/i));
     });
