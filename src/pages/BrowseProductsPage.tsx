@@ -6,8 +6,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import QuantitySelector from "../components/QuantitySelector";
 import {Category, Product} from "../entities";
 
-const WrappedSkeleton = ({label}: { label: string }) => <div role="progressbar" aria-label={label}><Skeleton/></div>
-
 function BrowseProducts() {
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
@@ -52,8 +50,8 @@ function BrowseProducts() {
     if (errorProducts) return <div>Error: {errorProducts}</div>;
 
     const renderCategories = () => {
-        if (isCategoriesLoading) return <WrappedSkeleton label="Loading categories"/>;
-        if (errorCategories) return <div>Error: {errorCategories}</div>;
+        if (isCategoriesLoading) return <div role="progressbar" aria-label="Loading categories"><Skeleton/></div>;
+        if (errorCategories) return null;
         return (
             <Select.Root
                 onValueChange={(categoryId) =>
