@@ -1,5 +1,6 @@
 import {QueryClient, QueryClientProvider} from "react-query";
 import {PropsWithChildren} from "react";
+import {CartProvider} from "../src/providers/CartProvider.tsx";
 
 const AllProviders = ({children}: PropsWithChildren) => {
     const client = new QueryClient({
@@ -12,7 +13,9 @@ const AllProviders = ({children}: PropsWithChildren) => {
 
     return (
         <QueryClientProvider client={client}>
+            <CartProvider>
             {children}
+            </CartProvider>
         </QueryClientProvider>
     );
 }
