@@ -3,7 +3,6 @@ import {afterAll, beforeAll, expect} from "vitest";
 import {db, getProductsByCategory} from "../mocks/db.ts";
 import AllProviders from "../AllProviders.tsx";
 import BrowseProducts from '../../src/pages/BrowseProductsPage.tsx';
-import {Theme} from "@radix-ui/themes";
 import {userEvent} from "@testing-library/user-event";
 import {Category, Product} from "../../src/entities.ts";
 import {simulateDelay, simulateError} from "../utils.ts";
@@ -11,7 +10,7 @@ import {simulateDelay, simulateError} from "../utils.ts";
 describe('BrowseProducts', () => {
     const products: Product[] = [];
     const categories: Category[] = [];
-    
+
     beforeAll(() => [1, 2].forEach((item) => {
         const category = db.category.create({name: "Category " + item});
         categories.push(category);
@@ -126,9 +125,7 @@ describe('BrowseProducts', () => {
 
 const renderComponent = () => {
     render(
-        <Theme>
-            <BrowseProducts/>
-        </Theme>,
+        <BrowseProducts/>,
         {wrapper: AllProviders}
     );
 
