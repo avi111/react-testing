@@ -74,9 +74,8 @@ describe('QuantitySelector', () => {
         const {addToCart, getAddToCartButton, getQuantityControls, decrementQuantity} = renderComponent();
         await addToCart();
 
-        await decrementQuantity();
-
         const {quantity, decrementButton, incrementButton} = getQuantityControls();
+        await decrementQuantity();
 
         expect(quantity).not.toBeInTheDocument();
         expect(decrementButton).not.toBeInTheDocument();
