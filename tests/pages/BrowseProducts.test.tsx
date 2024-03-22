@@ -5,7 +5,7 @@ import AllProviders from "../AllProviders.tsx";
 import BrowseProducts from '../../src/pages/BrowseProductsPage.tsx';
 import {userEvent} from "@testing-library/user-event";
 import {Category, Product} from "../../src/entities.ts";
-import {simulateDelay, simulateError} from "../utils.ts";
+import {simulateDelay, simulateError} from "../utils.tsx";
 
 describe('BrowseProducts', () => {
     const products: Product[] = [];

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
 import AuthStatus from '../../src/components/AuthStatus';
-import {mockAuthState} from "../utils.ts";
+import {mockAuthState} from "../utils.tsx";
 
 describe('AuthStatus', () => {
     it('should render the loading message while fetching the auth status', () => {

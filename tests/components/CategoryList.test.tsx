@@ -3,7 +3,7 @@ import CategoryList from "../../src/components/CategoryList.tsx";
 import {Category} from "../../src/entities.ts";
 import {afterAll, beforeAll} from "vitest";
 import {db} from "../mocks/db.ts";
-import {simulateDelay, simulateError} from "../utils.ts";
+import {simulateDelay, simulateError} from "../utils.tsx";
 import AllProviders from "../AllProviders.tsx";
 
 describe('CategoryList', () => {
